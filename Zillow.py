@@ -46,6 +46,9 @@ if st.button("Fetch Data"):
             yearly_avg = df.groupby('Year')['Value'].mean().reset_index()
             yearly_avg.rename(columns={'Value': 'Average_Rent'}, inplace=True)
 
+            # Ensure 'Year' is displayed as a string to prevent formatting with commas
+            yearly_avg['Year'] = yearly_avg['Year'].astype(str)
+
             # Display the data
             st.write("Yearly Average Rent:")
             st.dataframe(yearly_avg)
