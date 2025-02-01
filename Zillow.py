@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 import pandas as pd
@@ -11,14 +12,20 @@ st.write("Enter an address to fetch rental data and view yearly averages.")
 address = st.text_input("Address", value="7 Henchman Street, Boston, MA 02114")
 
 if st.button("Fetch Data"):
-    # API Details
-    url = "https://zillow-com1.p.rapidapi.com/valueHistory/localRentalRates"
-    headers = {
-        "x-rapidapi-key": "b4d2e9c6d5msh991837d54243565p1fb678jsn2e0e96d5f959",
-        "x-rapidapi-host": "zillow-com1.p.rapidapi.com"
-    }
-    querystring = {"address": address}
+    # Fetch the API key from the environment variable
+    api_key = os.getenv("ZillowAPI")
 
+    if not api_key:
+        st.error("API Contact Error")
+    else:
+        # API Details
+        url = "https://zillow-com1.p.rapidapi.com/valueHistory/localRentalRates"
+        headers = {
+            "x-rapidapi-key": api_key,  # Use the API key from the environment variable
+            "x-rapidapi-host": "zillow-com1.p.rapidapi.com"
+        }
+        querystring = {"address": address}
+        
     try:
         # Fetch API Data
         response = requests.get(url, headers=headers, params=querystring)
