@@ -9,7 +9,7 @@ st.title("Zillow Rental Data Viewer")
 st.write("Enter an address to fetch rental data and view yearly averages.")
 
 # User input for the address
-address = st.text_input("Address", value="7 Henchman Street, Boston, MA 02114")
+address = st.text_input("Address", value="Enter Apartment Address Here")
 
 if st.button("Fetch Data"):
     # Fetch the API key from the environment variable
